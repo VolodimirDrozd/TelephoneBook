@@ -1,0 +1,14 @@
+com\lardi\entity\CustomUserDetails.class
+com\lardi\DAO\IUserDAO.class
+com\lardi\configuration\SecurityConfig.class
+com\lardi\controller\ContactConroller.class
+com\lardi\controller\UserConroller.class
+com\lardi\DAO\IContactsDAO.class
+com\lardi\configuration\AppInitializer.class
+com\lardi\db\UserDAOImpl.class
+com\lardi\configuration\SecurityWebApplicationInitializer.class
+com\lardi\entity\User.class
+com\lardi\service\AuthenticationService.class
+com\lardi\configuration\AppConfig.class
+com\lardi\db\ContactsDAOImpl.class
+com\lardi\entity\Contact.class
