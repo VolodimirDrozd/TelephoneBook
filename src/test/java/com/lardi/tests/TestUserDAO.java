@@ -1,69 +1,87 @@
 package com.lardi.tests;
-import static org.junit.Assert.assertNotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.lardi.DAO.IUserDAO;
-import com.lardi.configuration.AppConfig;
-import com.lardi.db.UserDAOImpl;
-import com.lardi.entity.User;
+import com.lar.Application;
+import com.lar.controller.RestUserController;
+import com.lar.dto.UserDTO;
+import com.lar.entity.User;
+import com.lar.service.IUserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { AppConfig.class })
+@SpringBootTest(classes = Application.class)
 public class TestUserDAO {
 
 	@Autowired
-	@Qualifier("alternativeDataSource")
-	DriverManagerDataSource driverManagerDataSource;
+	IUserService iUserService;
 
-	IUserDAO userDAO;
+	@Autowired
+	RestUserController restUserController;
+
+	private UserDTO userDTOFirst;
+	private UserDTO userDTOSecond;
 
 	@Before
-	public void createUsersTable() {
+	public void setup() throws Exception {
+		iUserService.deleteAll();
+		userDTOFirst = new UserDTO();
+		userDTOSecond = new UserDTO();
+		userDTOFirst.setLogin("testUserLogin");
+		userDTOFirst.setName("testUserName");
+		userDTOFirst.setPassword("testUserPassword");
+		userDTOFirst.setPatronymic("testUserPatronymic");
+		userDTOFirst.setSurname("testUserSurname");
+		userDTOSecond.setLogin("testSecondUserLogin");
+		restUserController.save(userDTOFirst);
+		restUserController.save(userDTOSecond);
 
-		userDAO = new UserDAOImpl(driverManagerDataSource);
-		userDAO.createUserTableIfNotExist();
-		userDAO.alterCurrentContactId();
 	}
 
 	@Test
-	public void testSetterUser() {
-		User user = new User("login", "password", "name", "surname", "patronymic");
-		userDAO.save(user);
-		assertNotNull(userDAO.getUser(1));
-		userDAO.findUserByLogin(user.getLogin());
+	public void testUserControllerFindUserById() {
+		Long id = 1L;
+		User userFinded = restUserController.findUserById(id);
+		Assert.assertTrue(userFinded.getLogin().equals(userDTOFirst.getLogin()));
 	}
 
 	@Test
-	public void testSelectAllUsers() {
-		User user = new User("login", "password", "name", "surname", "patronymic");
-		userDAO.save(user);
-		List<User> listContact = userDAO.getAllUser();
-		assertNotNull(listContact);
+	public void testUserDAOFindUserById() {
+		Long id = 1L;
+		User userFinded = iUserService.findUserById(id);
+		Assert.assertTrue(userFinded.getLogin().equals(userFinded.getLogin()));
 	}
 
 	@Test
-	public void testSelectUser() {
-		User user = new User("login", "password", "name", "surname", "patronymic");
-		userDAO.save(user);
-		user = userDAO.getUser(1);
-		userDAO.delete(user.getId());
-
+	public void testUserDAOFindUserByLogin() {
+		User userFinded = iUserService.findUserByLogin(userDTOFirst.getLogin());
+		Assert.assertTrue(userFinded.getLogin().equals(userDTOFirst.getLogin()));
 	}
 
-	@After
-	public void deleteAll() {
-		userDAO.deleteAll();
+	@Test
+	public void testUserDAOGetAllUsers() {
+		Iterable<User> iterableUser = iUserService.getAllUsers();
+		List<User> listFindedUser = new ArrayList<>();
+		for (User userFinded : iterableUser) {
+			if (userFinded.getLogin().equals(userDTOFirst.getLogin())
+					|| (userDTOSecond.getLogin().equals(userDTOSecond.getLogin()))) {
+				listFindedUser.add(userFinded);
+			} else
+				try {
+					throw new Exception();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+		}
+		Assert.assertTrue(listFindedUser.size() == 2);
 	}
 
 }

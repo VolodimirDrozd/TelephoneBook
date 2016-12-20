@@ -1,75 +1,125 @@
 package com.lardi.tests;
 
-import static org.junit.Assert.assertNotNull;
-
+import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.lardi.DAO.IContactsDAO;
-import com.lardi.configuration.AppConfig;
-import com.lardi.db.ContactsDAOImpl;
-import com.lardi.entity.Contact;
+import com.lar.Application;
+import com.lar.entity.Contact;
+import com.lar.service.IContactService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { AppConfig.class })
+@SpringBootTest(classes = Application.class)
 public class TestContactDAO {
 
 	@Autowired
-	@Qualifier("alternativeDataSource")
-	DriverManagerDataSource driverManagerDataSource;
+	private IContactService iContactService;
 
-	IContactsDAO contactsDAO;
+	Contact testContactFirst;
+	Contact testContactSecond;
 
 	@Before
-	public void createContactsTable() {
-
-		contactsDAO = new ContactsDAOImpl(driverManagerDataSource);
-		contactsDAO.createContactTableIfNotExist();
-		contactsDAO.alterCurrentContactId();
+	public void setUp() {
+		iContactService.deleteAll();
+		testContactFirst = new Contact();
+		testContactSecond = new Contact();
+		testContactFirst.setName("FirstContactName");
+		testContactFirst.setSurname("ContactSurname");
+		testContactFirst.setPatronymic("ContactPatronymic");
+		testContactFirst.setPatronymic("ContactPatronymic");
+		testContactFirst.setAddress("ContactAdress");
+		testContactFirst.setEmail("ContactEmail");
+		testContactFirst.setHomeTelephone("ContactHomeTelphone");
+		testContactFirst.setTelephone("3806326388888");
+		testContactFirst.setUserId(1l);
+		testContactSecond.setName("SecondContactName");
+		testContactSecond.setTelephone("380632639");
+		testContactSecond.setUserId(1l);
+		testContactSecond.setEmail("FirstContactEmail");
+		iContactService.save(testContactFirst);
+		iContactService.save(testContactSecond);
 	}
 
-	// TODO accses about userId
 	@Test
-	public void testSetterContact() {
-		Contact contact = new Contact(1, "name", "surname", "patronymic", "telephone", "homeTelephone", "address",
-				"email", 1);
-		contactsDAO.save(contact);
-		assertNotNull(contactsDAO.getContact(1));
+	public void testFindContactById() {
+		Contact contactFindedById = iContactService.getContactById(1L);
+		Assert.assertTrue(contactFindedById.getEmail().equals(testContactFirst.getEmail()));
 	}
 
-	// TODO accses about userId
 	@Test
-	public void testSelectAllContacts() {
-		Contact contact = new Contact(1, "name", "surname", "patronymic", "telephone", "homeTelephone", "address",
-				"email", 1);
-		contactsDAO.save(contact);
-		List<Contact> listContact = contactsDAO.getAllContacts();
-		assertNotNull(listContact);
+	public void testFindAllOrderByName() {
+		List<Contact> listContactFindedById = iContactService.findAllOrderByName();
+		char[] arrayLeterPreviousContact;
+		char[] arrayLeterNextContact;
+
+		for (int i = 1; i < listContactFindedById.size(); i++) {
+			arrayLeterPreviousContact = listContactFindedById.get(i - 1).getName().toCharArray();
+			arrayLeterNextContact = listContactFindedById.get(i).getName().toCharArray();
+			for (int x = 1; x <= arrayLeterPreviousContact.length; x++) {
+				if (arrayLeterNextContact[x] > arrayLeterNextContact[x]) {
+					Assert.assertFalse(true);
+				} else
+					break;
+			}
+			Assert.assertTrue(true);
+		}
 	}
 
-	// TODO accses about userId
 	@Test
-	public void testSelectContact() {
-		Contact contact = new Contact(1, "name", "surname", "patronymic", "telephone", "homeTelephone", "address",
-				"email", 1);
-		contactsDAO.save(contact);
-		contact = contactsDAO.getContact(1);
-		contactsDAO.delete(contact.getContactId());
+	public void testFindAllOrderByTelephone() {
+		List<Contact> listContactFindedById = iContactService.findAllOrderByTelephone();
+		char[] arrayLeterPreviousContact;
+		char[] arrayLeterNextContact;
 
+		for (int i = 1; i < listContactFindedById.size(); i++) {
+			arrayLeterPreviousContact = listContactFindedById.get(i - 1).getTelephone().toCharArray();
+			arrayLeterNextContact = listContactFindedById.get(i).getTelephone().toCharArray();
+			for (int x = 1; x <= arrayLeterPreviousContact.length; x++) {
+				if (arrayLeterNextContact[x] > arrayLeterNextContact[x]) {
+					Assert.assertFalse(true);
+				} else
+					break;
+			}
+			Assert.assertTrue(true);
+		}
 	}
 
-	@After
-	public void deleteAll() {
-		contactsDAO.deleteAll();
+	 @Test
+	 public void testFindAllByUserId() {
+	 Iterable<Contact> itarableContactFindedByUserId =
+	 iContactService.findAllByUserId(testContactFirst.getId());
+	 List<Contact> listContactFindedByUserId = new ArrayList<Contact>();
+	 for (Contact contact : itarableContactFindedByUserId) {
+	 if (contact.getEmail().equals(testContactFirst.getEmail())
+	 || (contact.getEmail().equals(testContactSecond.getEmail()))) {
+	 listContactFindedByUserId.add(contact);
+	 } else
+	 Assert.assertFalse(true);
+	 }
+	 Assert.assertTrue(listContactFindedByUserId.size() == 2);
+	 }
+	
+	@Test
+	public void getAllContacts() {
+		Iterable<Contact> itarableContact = iContactService.getAllContacts();
+		List<Contact> listContact = new ArrayList<>();
+
+		for (Contact contact : itarableContact) {
+			if (!contact.getEmail().equals(testContactFirst.getEmail())
+					|| (!contact.getEmail().equals(testContactSecond.getEmail()))) {
+				listContact.add(contact);
+			} else
+				Assert.assertFalse(true);
+		}
+		Assert.assertTrue(listContact.size() == 2);
+
 	}
 
 }
