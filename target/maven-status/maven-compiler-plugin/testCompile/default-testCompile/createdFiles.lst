@@ -1,2 +1,3 @@
-com\lardi\tests\TestContactDAO.class
-com\lardi\tests\TestUserDAO.class
+com\lar\tests\TestContactDAO.class
+com\lar\tests\TestAppFunctional.class
+com\lar\tests\TestUserDAO.class

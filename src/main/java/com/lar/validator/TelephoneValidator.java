@@ -6,14 +6,13 @@ import org.springframework.stereotype.Component;
 public class TelephoneValidator {
 
 	public String createNumber(String telephoneNumber) {
-		StringBuilder phone = new StringBuilder(telephoneNumber);
+		StringBuilder phone = new StringBuilder();
 		phone.append("+380(").append(telephoneNumber);
-		phone.insert(5, ")");
+		phone.insert(8, ")");
 		return phone.toString();
 	}
 
 	public boolean checkNumber(String telephoneNumber) {
-		return !telephoneNumber.toString().matches(".*\\d+.*") && telephoneNumber.toCharArray().length != 9
-				&& telephoneNumber.toCharArray()[0] != 0 ;
+		return telephoneNumber.toString().matches("[-+]?\\d+") && telephoneNumber.toCharArray().length ==10;
 	}
 }
