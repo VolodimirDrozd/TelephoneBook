@@ -1,4 +1,4 @@
-package com.lar.daoImplementation;
+package com.lar.sevice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -110,7 +110,7 @@ public class JSONUserServiceImpl implements IUserService {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
+
 
 }

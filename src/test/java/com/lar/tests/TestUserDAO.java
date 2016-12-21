@@ -1,4 +1,4 @@
-package com.lardi.tests;
+package com.lar.tests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,15 +43,8 @@ public class TestUserDAO {
 		userDTOSecond.setLogin("testSecondUserLogin");
 		restUserController.save(userDTOFirst);
 		restUserController.save(userDTOSecond);
-
 	}
 
-	@Test
-	public void testUserControllerFindUserById() {
-		Long id = 1L;
-		User userFinded = restUserController.findUserById(id);
-		Assert.assertTrue(userFinded.getLogin().equals(userDTOFirst.getLogin()));
-	}
 
 	@Test
 	public void testUserDAOFindUserById() {

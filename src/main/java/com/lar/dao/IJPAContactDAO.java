@@ -12,6 +12,5 @@ public interface IJPAContactDAO extends CrudRepository<Contact, Long> {
 
 	List<Contact> findAllByOrderByTelephoneAsc();
 
-	List<Contact> findAllByUserId(Long userId);
 
 }

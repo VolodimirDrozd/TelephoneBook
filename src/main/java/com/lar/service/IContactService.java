@@ -19,7 +19,6 @@ public interface IContactService {
 	// Use for junit
 	public void deleteAll();
 
-	// TODO : better add references ManyToOne
 	public List<Contact> findAllByUserId(Long userId);
 
 	void delete(Long id);

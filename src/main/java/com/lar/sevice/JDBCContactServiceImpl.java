@@ -1,5 +1,7 @@
-package com.lar.daoImplementation;
+package com.lar.sevice;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +10,13 @@ import com.lar.dao.IJPAContactDAO;
 import com.lar.entity.Contact;
 import com.lar.service.IContactService;
 
-public class JPAContactServiceImpl implements IContactService {
+public class JDBCContactServiceImpl implements IContactService {
 
 	@Autowired
 	private IJPAContactDAO iJPAcontactDao;
+
+	@Autowired
+	private AuthenticationService authenticationService;
 
 	public Contact getContactById(Long id) {
 		return iJPAcontactDao.findOne(id);
@@ -22,6 +27,7 @@ public class JPAContactServiceImpl implements IContactService {
 	}
 
 	public Contact save(Contact contact) {
+		authenticationService.setUserIdForContact(contact);
 		return iJPAcontactDao.save(contact);
 	}
 
@@ -41,10 +47,16 @@ public class JPAContactServiceImpl implements IContactService {
 	public void deleteAll() {
 		iJPAcontactDao.deleteAll();
 	}
-
-	// TODO : better add references ManyToOne
+	
 	public List<Contact> findAllByUserId(Long userId) {
-		return iJPAcontactDao.findAllByUserId(userId);
+		List <Long> listUserId  = new ArrayList<Long>();
+		listUserId.add(userId);
+		List <Contact> listContact = new ArrayList<>(); 
+		Iterable<Contact> iterableContact =  iJPAcontactDao.findAll((Iterable<Long>)listUserId);
+		for(Contact contact:iterableContact){
+			listContact.add(contact);
+		}
+		return listContact;
 	}
 
 }

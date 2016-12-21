@@ -3,7 +3,6 @@ D:\Workspace\TelephoneBook\src\main\java\com\lar\dao\IJPAUserDAO.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\service\IContactService.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\entity\CustomUserDetails.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\controller\RestUserController.java
-D:\Workspace\TelephoneBook\src\main\java\com\lar\daoImplementation\JPAContactServiceImpl.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\service\IUserService.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\daoImplementation\JSONContactServiceImpl.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\validator\EmailValidator.java
@@ -15,7 +14,8 @@ D:\Workspace\TelephoneBook\src\main\java\com\lar\entity\Contact.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\dto\ContactDTO.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\controller\RestContactController.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\dto\UserDTO.java
-D:\Workspace\TelephoneBook\src\main\java\com\lar\daoImplementation\JPAUserServiceImpl.java
+D:\Workspace\TelephoneBook\src\main\java\com\lar\daoImplementation\JDBCContactServiceImpl.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\entity\User.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\service\AuthenticationService.java
+D:\Workspace\TelephoneBook\src\main\java\com\lar\daoImplementation\JDBCUserServiceImpl.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\configuration\SecurityWebApplicationInitializer.java

@@ -1,4 +1,4 @@
-package com.lardi.tests;
+package com.lar.tests;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +54,7 @@ public class TestContactDAO {
 	}
 
 	@Test
-	public void testFindAllOrderByName() {
+	public void testFindAllOrderByName() throws Exception {
 		List<Contact> listContactFindedById = iContactService.findAllOrderByName();
 		char[] arrayLeterPreviousContact;
 		char[] arrayLeterNextContact;
@@ -64,7 +64,7 @@ public class TestContactDAO {
 			arrayLeterNextContact = listContactFindedById.get(i).getName().toCharArray();
 			for (int x = 1; x <= arrayLeterPreviousContact.length; x++) {
 				if (arrayLeterNextContact[x] > arrayLeterNextContact[x]) {
-					Assert.assertFalse(true);
+					throw new Exception("Contacts are not sorted");
 				} else
 					break;
 			}
@@ -73,7 +73,7 @@ public class TestContactDAO {
 	}
 
 	@Test
-	public void testFindAllOrderByTelephone() {
+	public void testFindAllOrderByTelephone() throws Exception {
 		List<Contact> listContactFindedById = iContactService.findAllOrderByTelephone();
 		char[] arrayLeterPreviousContact;
 		char[] arrayLeterNextContact;
@@ -83,7 +83,7 @@ public class TestContactDAO {
 			arrayLeterNextContact = listContactFindedById.get(i).getTelephone().toCharArray();
 			for (int x = 1; x <= arrayLeterPreviousContact.length; x++) {
 				if (arrayLeterNextContact[x] > arrayLeterNextContact[x]) {
-					Assert.assertFalse(true);
+					throw new Exception("Contacts are not sorted");
 				} else
 					break;
 			}
@@ -91,32 +91,30 @@ public class TestContactDAO {
 		}
 	}
 
-	 @Test
-	 public void testFindAllByUserId() {
-	 Iterable<Contact> itarableContactFindedByUserId =
-	 iContactService.findAllByUserId(testContactFirst.getId());
-	 List<Contact> listContactFindedByUserId = new ArrayList<Contact>();
-	 for (Contact contact : itarableContactFindedByUserId) {
-	 if (contact.getEmail().equals(testContactFirst.getEmail())
-	 || (contact.getEmail().equals(testContactSecond.getEmail()))) {
-	 listContactFindedByUserId.add(contact);
-	 } else
-	 Assert.assertFalse(true);
-	 }
-	 Assert.assertTrue(listContactFindedByUserId.size() == 2);
-	 }
-	
 	@Test
-	public void getAllContacts() {
+	public void testFindAllByUserId() throws Exception {
+		Iterable<Contact> itarableContactFindedByUserId = iContactService.findAllByUserId(testContactFirst.getId());
+		List<Contact> listContactFindedByUserId = new ArrayList<Contact>();
+		for (Contact contact : itarableContactFindedByUserId) {
+			if (contact.getEmail().equals(testContactFirst.getEmail())
+					|| (contact.getEmail().equals(testContactSecond.getEmail()))) {
+				listContactFindedByUserId.add(contact);
+			} else
+				throw new Exception("These contacts do not match");
+		}
+		Assert.assertTrue(listContactFindedByUserId.size() >= 1);
+	}
+
+	@Test
+	public void getAllContacts() throws Exception {
 		Iterable<Contact> itarableContact = iContactService.getAllContacts();
 		List<Contact> listContact = new ArrayList<>();
-
 		for (Contact contact : itarableContact) {
 			if (!contact.getEmail().equals(testContactFirst.getEmail())
 					|| (!contact.getEmail().equals(testContactSecond.getEmail()))) {
 				listContact.add(contact);
 			} else
-				Assert.assertFalse(true);
+				throw new Exception("These contacts do not match");
 		}
 		Assert.assertTrue(listContact.size() == 2);
 
