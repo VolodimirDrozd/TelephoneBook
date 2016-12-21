@@ -45,11 +45,9 @@ public class TestUserDAO {
 		restUserController.save(userDTOSecond);
 	}
 
-
 	@Test
 	public void testUserDAOFindUserById() {
-		Long id = 1L;
-		User userFinded = iUserService.findUserById(id);
+		User userFinded = iUserService.findUserById((iUserService.findUserByLogin(userDTOFirst.getLogin()).getId()));
 		Assert.assertTrue(userFinded.getLogin().equals(userFinded.getLogin()));
 	}
 

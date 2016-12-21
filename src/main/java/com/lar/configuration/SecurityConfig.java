@@ -20,9 +20,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().formLogin().loginProcessingUrl("/login").passwordParameter("password").usernameParameter("login").and()
-				.authorizeRequests().antMatchers("/", "/registration", "/login","/api/contact/*","/api/user/*" ).permitAll().antMatchers("/getContacts")
-				.authenticated();
+		http.csrf().disable().formLogin().loginProcessingUrl("/login").passwordParameter("password")
+				.usernameParameter("login").and().authorizeRequests()
+				.antMatchers("/", "/registration", "/login", "/api/contact/*", "/api/user/*").permitAll()
+				.antMatchers("/getContacts").authenticated();
 	}
 
 }

@@ -49,7 +49,7 @@ public class TestContactDAO {
 
 	@Test
 	public void testFindContactById() {
-		Contact contactFindedById = iContactService.getContactById(1L);
+		Contact contactFindedById = iContactService.getContactById(testContactFirst.getId());
 		Assert.assertTrue(contactFindedById.getEmail().equals(testContactFirst.getEmail()));
 	}
 

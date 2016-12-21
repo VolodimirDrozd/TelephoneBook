@@ -1,6 +1,6 @@
 package com.lar.sevice;
 
-import java.io.File; 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -81,10 +81,14 @@ public class JSONContactServiceImpl implements IContactService {
 
 	@Override
 	public Contact save(Contact contact) {
+		if (telephoneValidator.checkNumber(contact.getTelephone())) {
+			return null;
+		}
 		Iterable<Contact> listSavedContacts = getAllContacts();
 		authenticationService.setUserIdForContact(contact);
 		List<Contact> list = createListFromIterable(listSavedContacts);
 		contact.setId(Long.valueOf(list.size() + 1));
+		contact.setTelephone(telephoneValidator.createNumber(contact.getTelephone()));
 		list.add(contact);
 		writeObjectToFile(list);
 		return contact;
@@ -152,7 +156,7 @@ public class JSONContactServiceImpl implements IContactService {
 	}
 
 	private List<Contact> createListFromIterable(Iterable<Contact> iterableContactList) {
-		List<Contact> listContact = new ArrayList();
+		List<Contact> listContact = new ArrayList<Contact>();
 		if (iterableContactList != null) {
 			for (Contact contact : iterableContactList) {
 				listContact.add(contact);
