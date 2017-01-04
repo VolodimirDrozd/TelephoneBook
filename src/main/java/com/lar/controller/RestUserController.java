@@ -25,8 +25,8 @@ public class RestUserController {
 	}
 
 	@GetMapping("/get")
-	public User findUserById(@RequestParam Long id) {
-		return userService.findUserById(id);
+	public User getUserBy(@RequestParam Long userId) {
+		return userService.findUserBy(userId);
 	}
 
 }

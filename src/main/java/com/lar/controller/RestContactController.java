@@ -26,8 +26,8 @@ public class RestContactController {
 	}
 
 	@GetMapping("/get/id")
-	public Contact getContactById(Long id) {
-		return contactService.getContactById(id);
+	public Contact getContactBy(Long contactId) {
+		return contactService.getContactBy(contactId);
 	}
 
 	@GetMapping("/get")
@@ -36,18 +36,18 @@ public class RestContactController {
 	}
 
 	@GetMapping("/order/name")
-	public List<Contact> findAllOrderByName() {
-		return contactService.findAllOrderByName();
+	public List<Contact> sortContactsByName() {
+		return contactService.sortContctsByName();
 	}
 
 	@GetMapping("/order/phone")
-	public List<Contact> findAllOrderByTelephone() {
-		return contactService.findAllOrderByTelephone();
+	public List<Contact> sortContactsByTelephone() {
+		return contactService.sortContctsByTelephone();
 	}
 
 	@GetMapping("/get/userId")
-	public List<Contact> findAllByUserId(Long userId) {
-		return contactService.findAllByUserId(userId);
+	public List<Contact> findAllContactsBy(Long userId) {
+		return contactService.findContactsBy(userId);
 	}
 
 }

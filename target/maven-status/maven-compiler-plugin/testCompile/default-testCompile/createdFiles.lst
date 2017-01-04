@@ -1,3 +1,4 @@
+com\lar\tests\TestContactDataValidator.class
+com\lar\tests\TestUserDataValidator.class
 com\lar\tests\TestContactDAO.class
-com\lar\tests\TestAppFunctional.class
 com\lar\tests\TestUserDAO.class

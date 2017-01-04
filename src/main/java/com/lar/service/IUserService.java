@@ -4,13 +4,15 @@ import com.lar.entity.User;
 
 public interface IUserService {
 
-	public User findUserById(Long id);
-
-	public Iterable<User> getAllUsers();
-
 	public User save(User user);
+	
+	public Iterable<User> getAllUsers();
+	
+	public User findUserBy(Long userId);
+	
+	public User findUserBy(String userlogin);
 
-	public void deleteAll();
+	public void deleteAllUsers();
 
-	public User findUserByLogin(String login);
+
 }

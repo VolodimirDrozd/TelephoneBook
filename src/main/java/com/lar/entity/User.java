@@ -1,7 +1,6 @@
 package com.lar.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,7 +9,7 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	@GeneratedValue
+	// @GeneratedValue
 	private Long id;
 	private String login;
 	private String password;
@@ -71,6 +70,7 @@ public class User {
 	}
 
 	public static class UserBuilder {
+		private Long id;
 		private String login;
 		private String password;
 		private String name;
@@ -78,6 +78,11 @@ public class User {
 		private String patronymic;
 
 		public UserBuilder() {
+		}
+
+		public UserBuilder id(Long valId) {
+			id = valId;
+			return this;
 		}
 
 		public UserBuilder login(String valLogin) {
@@ -107,6 +112,7 @@ public class User {
 
 		public User build() {
 			User user = new User();
+			user.setId(id);
 			user.setLogin(login);
 			user.setName(name);
 			user.setPassword(password);
@@ -115,5 +121,4 @@ public class User {
 			return user;
 		}
 	}
-
 }

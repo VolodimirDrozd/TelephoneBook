@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="com.lar.tests.TestContactDAO" time="1.18" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="com.lar.tests.TestContactDAO" time="2.035" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="D:\Java\jdk1.8.0_111\jre\bin"/>
@@ -63,9 +63,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase classname="com.lar.tests.TestContactDAO" name="testFindAllByUserId" time="0.632"/>
-  <testcase classname="com.lar.tests.TestContactDAO" name="testFindAllOrderByTelephone" time="0.136"/>
-  <testcase classname="com.lar.tests.TestContactDAO" name="getAllContacts" time="0.137"/>
-  <testcase classname="com.lar.tests.TestContactDAO" name="testFindAllOrderByName" time="0.152"/>
-  <testcase classname="com.lar.tests.TestContactDAO" name="testFindContactById" time="0.123"/>
+  <testcase classname="com.lar.tests.TestContactDAO" name="testingSortingContactsByName" time="1.126"/>
+  <testcase classname="com.lar.tests.TestContactDAO" name="getAllContacts" time="0.24"/>
+  <testcase classname="com.lar.tests.TestContactDAO" name="testingSortingContactsByTelephone" time="0.244"/>
+  <testcase classname="com.lar.tests.TestContactDAO" name="testingSortingContactsByUserId" time="0.233"/>
+  <testcase classname="com.lar.tests.TestContactDAO" name="testFindContactById" time="0.192"/>
 </testsuite>

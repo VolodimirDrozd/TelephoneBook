@@ -5,22 +5,22 @@ import java.util.List;
 import com.lar.entity.Contact;
 
 public interface IContactService {
+	
+	public Contact save(Contact contact);
 
-	public Contact getContactById(Long id);
+	public Contact getContactBy(Long contactId);
 
 	public Iterable<Contact> getAllContacts();
 
-	public Contact save(Contact contact);
+	public List<Contact> sortContctsByName();
 
-	public List<Contact> findAllOrderByName();
+	public List<Contact> sortContctsByTelephone();
 
-	public List<Contact> findAllOrderByTelephone();
+	// Use for JUnit
+	public void deleteContacts();
 
-	// Use for junit
-	public void deleteAll();
+	public List<Contact> findContactsBy(Long userId);
 
-	public List<Contact> findAllByUserId(Long userId);
-
-	void delete(Long id);
+	void deleteContact(Long contactId);
 
 }

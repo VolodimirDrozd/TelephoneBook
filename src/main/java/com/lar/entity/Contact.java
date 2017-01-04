@@ -1,7 +1,6 @@
 package com.lar.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,16 +9,95 @@ import javax.persistence.Table;
 public class Contact {
 
 	@Id
-	@GeneratedValue
 	private Long id;
 	private Long userId;
 	private String name;
 	private String surname;
 	private String patronymic;
-	private String telephone;
-	private String homeTelephone;
+	private String mobilePhone;
+	private String homePhone;
 	private String address;
 	private String email;
+
+	public static ContactBuilder builder() {
+		return new ContactBuilder();
+	}
+
+	public static class ContactBuilder {
+		private Long id;
+		private Long userId;
+		private String name;
+		private String surname;
+		private String patronymic;
+		private String mobilePhone;
+		private String homePhone;
+		private String address;
+		private String email;
+
+		public ContactBuilder() {
+		}
+
+
+		public ContactBuilder id(long setId) {
+			id = setId;
+			return this;
+		}
+
+		public ContactBuilder userId(long setUserId) {
+			userId = setUserId;
+			return this;
+		}
+
+		public ContactBuilder name(String setName) {
+			name = setName;
+			return this;
+		}
+
+		public ContactBuilder surname(String setSurname) {
+			surname = setSurname;
+			return this;
+		}
+
+		public ContactBuilder patronymic(String setPatronymic) {
+			patronymic = setPatronymic;
+			return this;
+		}
+
+		public ContactBuilder mobilePhone(String setMobilePhone) {
+			mobilePhone = setMobilePhone;
+			return this;
+		}
+
+		public ContactBuilder homePhone(String setHomePhone) {
+			homePhone = setHomePhone;
+			return this;
+		}
+
+		public ContactBuilder address(String setAddress) {
+			address = setAddress;
+			return this;
+		}
+
+		public ContactBuilder email(String setEmail) {
+			email = setEmail;
+			return this;
+		}
+
+		public Contact build() {
+			Contact contact = new Contact();
+			contact.setId(id);
+			contact.setName(name);
+			contact.setSurname(surname);
+			contact.setPatronymic(patronymic);
+			contact.setAddress(address);
+			contact.setHomePhone(homePhone);
+			contact.setEmail(email);
+			contact.setMobilePhone(mobilePhone);
+			contact.setUserId(userId);
+			return contact;
+		}
+
+	}
 
 	public Long getId() {
 		return id;
@@ -61,20 +139,20 @@ public class Contact {
 		this.patronymic = patronymic;
 	}
 
-	public String getTelephone() {
-		return telephone;
+	public String getMobilePhone() {
+		return mobilePhone;
 	}
 
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+	public void setMobilePhone(String mobilePhone) {
+		this.mobilePhone = mobilePhone;
 	}
 
-	public String getHomeTelephone() {
-		return homeTelephone;
+	public String getHomePhone() {
+		return homePhone;
 	}
 
-	public void setHomeTelephone(String homeTelephone) {
-		this.homeTelephone = homeTelephone;
+	public void setHomePhone(String homePhone) {
+		this.homePhone = homePhone;
 	}
 
 	public String getAddress() {
@@ -91,81 +169,5 @@ public class Contact {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public static ContactBuilder builder() {
-		return new ContactBuilder();
-	}
-
-	public static class ContactBuilder {
-		private Long id;
-		private Long userId;
-		private String name;
-		private String surname;
-		private String patronymic;
-		private String telephone;
-		private String homeTelephone;
-		private String address;
-		private String email;
-
-		public ContactBuilder id(long id) {
-			id(id);
-			return this;
-		}
-
-		public ContactBuilder userId(long userId) {
-			userId(userId);
-			return this;
-		}
-
-		public ContactBuilder name(String name) {
-			name(name);
-			return this;
-		}
-
-		public ContactBuilder surname(String surname) {
-			surname(surname);
-			return this;
-		}
-
-		public ContactBuilder patronymic(String patronymic) {
-			patronymic(patronymic);
-			return this;
-		}
-
-		public ContactBuilder telephone(String telephone) {
-			patronymic(telephone);
-			return this;
-		}
-
-		public ContactBuilder homeTelephone(String homeTelephone) {
-			homeTelephone(homeTelephone);
-			return this;
-		}
-
-		public ContactBuilder address(String address) {
-			address(address);
-			return this;
-		}
-
-		public ContactBuilder email(String email) {
-			email(email);
-			return this;
-		}
-
-		public Contact build() {
-			Contact contact = new Contact();
-			contact.setId(id);
-			contact.setName(name);
-			contact.setSurname(surname);
-			contact.setPatronymic(patronymic);
-			contact.setAddress(address);
-			contact.setHomeTelephone(homeTelephone);
-			contact.setEmail(email);
-			contact.setTelephone(telephone);
-			contact.setUserId(userId);
-			return contact;
-		}
-
 	}
 }

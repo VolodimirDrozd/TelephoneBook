@@ -5,19 +5,18 @@ import com.lar.entity.Contact;
 public class ContactDTO {
 
 	private Long id;
-
 	private Long userId;
 	private String name;
 	private String surname;
 	private String patronymic;
-	private String telephone;
+	private String mobileTelephone;
 	private String homeTelephone;
 	private String address;
 	private String email;
 
 	public Contact build() {
-		return Contact.builder().name(name).surname(surname).patronymic(patronymic).telephone(telephone)
-				.homeTelephone(homeTelephone).address(address).email(email).build();
+		return Contact.builder().name(name).surname(surname).patronymic(patronymic).mobilePhone(mobileTelephone)
+				.homePhone(homeTelephone).address(address).email(email).build();
 	}
 
 	public Long getId() {
@@ -61,11 +60,11 @@ public class ContactDTO {
 	}
 
 	public String getTelephone() {
-		return telephone;
+		return mobileTelephone;
 	}
 
 	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+		this.mobileTelephone = telephone;
 	}
 
 	public String getHomeTelephone() {
