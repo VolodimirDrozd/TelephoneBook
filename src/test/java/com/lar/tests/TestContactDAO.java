@@ -47,7 +47,7 @@ public class TestContactDAO {
 				.patronymic("fourthPatronymic").address("fourthAddress").email("fourth@email.com")
 				.homePhone("0441234567").mobilePhone("634234567").build();
 		beforeContactsList = new ArrayList<>();
-		beforeContactsList.addAll(Arrays.asList(fistContact, secondContact, thirdContact,fourthContact));
+		beforeContactsList.addAll(Arrays.asList(fistContact, secondContact, thirdContact, fourthContact));
 		iContactService.save(fistContact);
 		iContactService.save(secondContact);
 		iContactService.save(thirdContact);

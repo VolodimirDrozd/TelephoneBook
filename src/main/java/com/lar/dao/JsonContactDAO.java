@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.google.common.collect.Lists;
 import com.lar.entity.Contact;
 import com.lar.seviceimpl.AuthenticationService;
-import com.lar.validatorcontactdata.TelephoneValidator;
+import com.lar.validatoruserdata.ContactDataValidator;
 
 public class JsonContactDAO extends JsonDAO {
 
@@ -37,10 +37,10 @@ public class JsonContactDAO extends JsonDAO {
 	}
 
 	@Autowired
-	private TelephoneValidator telephoneValidator;
+	private AuthenticationService authenticationService;
 
 	@Autowired
-	private AuthenticationService authenticationService;
+	private ContactDataValidator contactDataValidator;
 
 	public Contact getContactBy(Long id) {
 		for (Contact contact : getAllContacts()) {
@@ -62,15 +62,16 @@ public class JsonContactDAO extends JsonDAO {
 	}
 
 	public Contact save(Contact contact) {
-		if (telephoneValidator.checkNumber(contact.getMobilePhone())) {
-			return null;
+		try {
+			contactDataValidator.validate(contact);
+			contactDataValidator.createNumber(contact.getMobilePhone());
+			List<Contact> newListContactsForSave = Lists.newArrayList(getAllContacts());
+			contact.setId(Long.valueOf(newListContactsForSave.size() + 1));
+			authenticationService.setUserIdForContact(contact);
+			newListContactsForSave.add(contact);
+			writeToDBFile(newListContactsForSave);
+		} catch (Exception e) {
 		}
-		List<Contact> newListContactsForSave = Lists.newArrayList(getAllContacts());
-		contact.setMobilePhone(telephoneValidator.createNumber(contact.getMobilePhone()));
-		contact.setId(Long.valueOf(newListContactsForSave.size() + 1));
-		authenticationService.setUserIdForContact(contact);
-		newListContactsForSave.add(contact);
-		writeToDBFile(newListContactsForSave);
 		return contact;
 	}
 

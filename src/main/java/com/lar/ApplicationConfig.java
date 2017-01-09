@@ -1,6 +1,6 @@
 package com.lar;
 
-import org.springframework.beans.factory.annotation.Value; 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,6 @@ import com.lar.seviceimpl.JDBCContactServiceImpl;
 import com.lar.seviceimpl.JDBCUserServiceImpl;
 import com.lar.seviceimpl.JsonContactServiceImpl;
 import com.lar.seviceimpl.JsonUserServiceImpl;
-
 
 @SpringBootApplication()
 public class ApplicationConfig {

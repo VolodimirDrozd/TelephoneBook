@@ -5,7 +5,6 @@ D:\Workspace\TelephoneBook\src\main\java\com\lar\validatoruserdata\UserDataValid
 D:\Workspace\TelephoneBook\src\main\java\com\lar\validatorcontactdata\EmailValidator.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\dto\ContactDTO.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\controller\RestContactController.java
-D:\Workspace\TelephoneBook\src\main\java\com\lar\validatorcontactdata\TelephoneValidator.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\validatoruserdata\DataValidator.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\seviceimpl\JDBCUserServiceImpl.java
 D:\Workspace\TelephoneBook\src\main\java\com\lar\dto\UserDTO.java

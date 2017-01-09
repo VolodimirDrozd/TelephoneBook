@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.lar.dao.IJPAContactDAO;
 import com.lar.entity.Contact;
 import com.lar.service.IContactService;
-import com.lar.validatorcontactdata.TelephoneValidator;
+import com.lar.validatoruserdata.ContactDataValidator;
 
 public class JDBCContactServiceImpl implements IContactService {
 
 	@Autowired
-	TelephoneValidator telephoneValidator;
+	ContactDataValidator contactDataValidator;
 
 	@Autowired
 	private IJPAContactDAO iJPAcontactDao;
@@ -33,12 +33,15 @@ public class JDBCContactServiceImpl implements IContactService {
 
 	@Override
 	public Contact save(Contact contact) {
-		if (telephoneValidator.checkNumber(contact.getMobilePhone())) {
-			throw new NullPointerException("Incorrect phone number");
+		try {
+			contactDataValidator.validate(contact);
+			contactDataValidator.createNumber(contact.getMobilePhone());
+			authenticationService.setUserIdForContact(contact);
+			iJPAcontactDao.save(contact);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		authenticationService.setUserIdForContact(contact);
-		contact.setMobilePhone(telephoneValidator.createNumber(contact.getMobilePhone()));
-		return iJPAcontactDao.save(contact);
+		return contact;
 	}
 
 	@Override

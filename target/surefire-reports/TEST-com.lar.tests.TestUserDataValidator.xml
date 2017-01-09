@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="com.lar.tests.TestUserDataValidator" time="0" errors="0" skipped="0">
+<testsuite tests="5" failures="0" name="com.lar.tests.TestUserDataValidator" time="0.022" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="D:\Java\jdk1.8.0_111\jre\bin"/>
@@ -63,9 +63,9 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="pentium_pro+mmx pentium_pro pentium+mmx pentium i486 i386 i86"/>
   </properties>
-  <testcase classname="com.lar.tests.TestUserDataValidator" name="testUserSurnameValidator" time="0"/>
-  <testcase classname="com.lar.tests.TestUserDataValidator" name="testUserPatronymicValidator" time="0"/>
-  <testcase classname="com.lar.tests.TestUserDataValidator" name="testUserPasswordValidator" time="0"/>
-  <testcase classname="com.lar.tests.TestUserDataValidator" name="testUserNameValidator" time="0"/>
-  <testcase classname="com.lar.tests.TestUserDataValidator" name="testUserLoginValidator" time="0"/>
+  <testcase classname="com.lar.tests.TestUserDataValidator" name="testUserSurnameValidator" time="0.005"/>
+  <testcase classname="com.lar.tests.TestUserDataValidator" name="testUserPatronymicValidator" time="0.004"/>
+  <testcase classname="com.lar.tests.TestUserDataValidator" name="testUserPasswordValidator" time="0.004"/>
+  <testcase classname="com.lar.tests.TestUserDataValidator" name="testUserNameValidator" time="0.004"/>
+  <testcase classname="com.lar.tests.TestUserDataValidator" name="testUserLoginValidator" time="0.005"/>
 </testsuite>

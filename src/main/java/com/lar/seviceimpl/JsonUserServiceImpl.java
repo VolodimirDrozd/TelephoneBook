@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.lar.dao.JsonUserDAO;
 import com.lar.entity.User;
 import com.lar.service.IUserService;
+import com.lar.validatoruserdata.UserDataValidator;
 
 public class JsonUserServiceImpl implements IUserService {
 
@@ -16,6 +17,9 @@ public class JsonUserServiceImpl implements IUserService {
 
 	@Autowired
 	JsonUserDAO jsonUserDAO;
+
+	@Autowired
+	UserDataValidator userDataValidator;
 
 	File file;
 
@@ -31,7 +35,13 @@ public class JsonUserServiceImpl implements IUserService {
 
 	@Override
 	public User save(User user) {
-		return jsonUserDAO.save(user);
+		try {
+			userDataValidator.validate(user);
+			jsonUserDAO.save(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 
 	@Override

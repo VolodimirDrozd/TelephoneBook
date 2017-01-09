@@ -9,7 +9,6 @@ com\lar\dto\UserDTO.class
 com\lar\configuration\SecurityConfig.class
 com\lar\dao\IJPAContactDAO.class
 com\lar\service\IContactService.class
-com\lar\validatorcontactdata\TelephoneValidator.class
 com\lar\dto\ContactDTO.class
 com\lar\entity\User.class
 com\lar\dao\IJPAUserDAO.class

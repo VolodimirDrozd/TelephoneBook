@@ -8,16 +8,21 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.google.common.collect.Lists;
 import com.lar.entity.User;
+import com.lar.validatoruserdata.UserDataValidator;
 
 public class JsonUserDAO extends JsonDAO {
 
 	private static long userId;
 	private File dbUsersFile;
 	private ArrayList<User> savedUsers;
+
+	@Autowired
+	UserDataValidator userDataValidator;
 
 	@Value("${pathUserDB}")
 	private String pathUserDBFile;
@@ -44,11 +49,15 @@ public class JsonUserDAO extends JsonDAO {
 	}
 
 	public User save(User user) {
-		user.setId(userId++);
-		savedUsers = Lists.newArrayList(getAllUsers());
-		List<User> newUserlistForSave = new ArrayList<>(savedUsers);
-		newUserlistForSave.add(user);
-		writeToDBFile(newUserlistForSave);
+		try {
+			userDataValidator.validate(user);
+			user.setId(userId++);
+			List<User> listSavedUser = new ArrayList<>(Lists.newArrayList(getAllUsers()));
+			listSavedUser.add(user);
+			writeToDBFile(listSavedUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return user;
 	}
 
@@ -79,4 +88,5 @@ public class JsonUserDAO extends JsonDAO {
 		List<User> quantityUserInFileDB = Lists.newArrayList(getAllUsers());
 		userId = quantityUserInFileDB.size() > 0 ? quantityUserInFileDB.size() + 1 : 1;
 	}
+
 }
